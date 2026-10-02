@@ -1,0 +1,14 @@
+{
+  "name": "wtx",
+  "private": true,
+  "type": "module",
+  "description": "WT-X — journal de trading",
+  "scripts": {
+    "serve": "node tools/serve.mjs",
+    "test": "node tests/run-tests.mjs",
+    "test:update-baseline": "node tests/run-tests.mjs --update-baseline"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

@@ -6,7 +6,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 WT-X ("walltrade X") is a trading journal / dashboard ("Journal de Trading") built as **one self-contained HTML file**: `Journal_Trading_Dashboard_CMVP2_FinalGaps_Fix3.html` (~10.9k lines, ~600 KB), the current working version. The UI, code comments, and identifiers are mostly in **French**; keep new UI text and comments in French to match.
 
-There is no build system, package manager, or linter. To run it, open the file in a browser. External dependencies are CDN scripts only: Chart.js 4.4.4 (cdnjs, with a jsdelivr fallback loaded at runtime) and SheetJS/xlsx 0.18.5, plus Google Fonts.
+There is no build step or linter. Node.js is only used for the local server and the test runner. External dependencies are CDN scripts only: Chart.js 4.4.4 (cdnjs, with a jsdelivr fallback loaded at runtime) and SheetJS/xlsx 0.18.5, plus Google Fonts.
+
+## Commands
+
+```bash
+npm install                  # once: installs puppeteer-core (drives the locally installed Chrome/Edge)
+npm run serve                # serves the app at http://127.0.0.1:8080/ (PORT=… to change); never open it via file://
+npm test                     # full automated check, must print OK
+npm run test:update-baseline # rewrites tests/baseline/wtx-baseline.json, ONLY after an explicitly decided business-rule change
+```
+
+`npm test` (`tests/run-tests.mjs`) serves the page, opens it in headless Chrome/Edge (`CHROME_PATH` overrides the browser) and checks four things:
+1. The app starts with no JS error.
+2. Every function called from an `on*="name(…)"` handler is still reachable globally.
+3. The C-MVP2 volume suite passes in full (174/174).
+4. `tests/baseline/characterize.js` still yields exactly the engine outputs stored in `wtx-baseline.json`: R engine, orders, `buildSeries`, stats, `otFloatingR`/`otFloatingPnl`, migration.
+
+Any characterization diff is a regression unless a business change was explicitly decided. Reports and a startup screenshot are written to `test-results/` (gitignored). There is no single-test filter; the whole run takes about 10 s. The git tag `wtx-baseline-pre-refactor` marks the last monolithic version before the modular restructuring. Known deviations that must be preserved until explicitly fixed are documented in `docs/issues/`.
 
 ## File layout
 
@@ -35,7 +52,7 @@ There is no build system, package manager, or linter. To run it, open the file i
 
 ## Tests
 
-`tests/wtx_cmvp2_volume_tests.js` is an in-page browser harness, not a Node test. Serve the repo root over a local HTTP server (e.g. `npx http-server` or `python -m http.server`), open the Fix3 page, and run this in the devtools console:
+`npm test` runs `tests/wtx_cmvp2_volume_tests.js` automatically. That file is an in-page browser harness, not a Node test. To run it by hand, start `npm run serve`, open the page, and run this in the devtools console:
 
 ```js
 window.__wtxErrors = window.__wtxErrors || [];
@@ -43,4 +60,4 @@ eval(await (await fetch('/tests/wtx_cmvp2_volume_tests.js')).text());
 await window.__wtxRunTests();
 ```
 
-Loading the script only defines `window.__wtxRunTests`; calling it runs the suites and returns (and stores in `window.__wtxTestReport`) a report with `total`, `pass`, `fail`, `bySuite` and `failures`. The harness snapshots and restores `TRADES`, `OPEN_TRADES` and `SETTINGS`, and stubs `alert`/`confirm`. It reads `window.__wtxErrors`, which the page does not define, so it must exist before the run (ideally filled by a `window.onerror` collector so JS errors show up in `jsErrors`). The usage comment at the top of the test file returns `__wtxTestReport` without calling `__wtxRunTests`, so it returns `null`. The last recorded run was 174/174.
+Loading the script only defines `window.__wtxRunTests`; calling it runs the suites and returns (and stores in `window.__wtxTestReport`) a report with `total`, `pass`, `fail`, `bySuite` and `failures`. The harness snapshots and restores `TRADES`, `OPEN_TRADES` and `SETTINGS`, and stubs `alert`/`confirm`. It reads `window.__wtxErrors`, which the page does not define, so it must exist before the run. `npm test` installs a `window.onerror` collector for it, so JS errors show up in `jsErrors`. The usage comment at the top of the test file returns `__wtxTestReport` without calling `__wtxRunTests`, so it returns `null`.

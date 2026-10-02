@@ -1,0 +1,309 @@
+{
+  "page": "Journal_Trading_Dashboard_CMVP2_FinalGaps_Fix3.html",
+  "handlers": {
+    "count": 193,
+    "missing": []
+  },
+  "volumeSuite": {
+    "total": 174,
+    "pass": 174,
+    "fail": 0
+  },
+  "characterization": {
+    "computeRRFromPrices": [
+      2,
+      2,
+      -0.5,
+      null,
+      null,
+      null,
+      null,
+      2.0000000000000444,
+      3,
+      0.9999999999999996
+    ],
+    "calcRR": [
+      2,
+      2,
+      -0.5,
+      null,
+      null,
+      null,
+      null,
+      2.0000000000000444,
+      3,
+      0.9999999999999996
+    ],
+    "computePlannedR": [
+      2,
+      2,
+      2,
+      1.7,
+      null,
+      null,
+      null
+    ],
+    "computePlannedRForOpenTrade": [
+      1.9,
+      1.5,
+      null,
+      null
+    ],
+    "deriveTradeResultFromRealizedR": [
+      "TP",
+      "SL",
+      "BE",
+      "BE",
+      "BE",
+      "BE",
+      "TP",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "computeRiskAmountAtEntry": [
+      10,
+      null,
+      null,
+      null,
+      null,
+      12.5,
+      0
+    ],
+    "computeRealizedRFromPnL": [
+      2,
+      -1,
+      0,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "tradeRealizedR": [
+      1.5,
+      2,
+      -1,
+      null,
+      null,
+      null
+    ],
+    "orderBaseDirection": [
+      "Buy",
+      "Sell",
+      "Buy",
+      "Buy",
+      "Sell",
+      "Sell",
+      "Buy",
+      "Buy"
+    ],
+    "isPendingOrderType": [
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ],
+    "validateSLDirection": [
+      null,
+      "Stop loss invalide : pour un ordre Buy (Buy, Buy Stop, Buy Limit), le stop loss doit être strictement inférieur au prix d'entrée.",
+      null,
+      "Stop loss invalide : pour un ordre Sell (Sell, Sell Stop, Sell Limit), le stop loss doit être strictement supérieur au prix d'entrée.",
+      "Prix d'entrée ou stop loss invalide (valeur manquante ou non numérique)."
+    ],
+    "computeWinRate": [
+      0.75,
+      null,
+      0,
+      0
+    ],
+    "buildSeries": [
+      {
+        "id": 1,
+        "gain": 20,
+        "capital": 1020,
+        "cumR": 2,
+        "drawdown": 0,
+        "result": "TP"
+      },
+      {
+        "id": 2,
+        "gain": -10.2,
+        "capital": 1009.8,
+        "cumR": 1,
+        "drawdown": -1,
+        "result": "SL"
+      },
+      {
+        "id": 3,
+        "gain": 30.293999999999997,
+        "capital": 1040.094,
+        "cumR": 2.5,
+        "drawdown": 0,
+        "result": "TP"
+      },
+      {
+        "id": 5,
+        "gain": 0,
+        "capital": 1040.094,
+        "cumR": 2.5,
+        "drawdown": 0,
+        "result": "BE"
+      },
+      {
+        "id": 4,
+        "gain": 0,
+        "capital": 1040.094,
+        "cumR": 2.5,
+        "drawdown": 0,
+        "result": null
+      },
+      {
+        "id": 6,
+        "gain": 13.4,
+        "capital": 1053.4940000000001,
+        "cumR": 3.8,
+        "drawdown": 0,
+        "result": "TP"
+      }
+    ],
+    "computeStats": {
+      "tp": 3,
+      "be": 1,
+      "sl": 1,
+      "total": 6,
+      "winrate": 0.75,
+      "rrTotal": 3.8,
+      "rrMoyen": 0.76,
+      "expectancy": 0.6333333333333333,
+      "grossWin": 4.8,
+      "grossLoss": 1,
+      "profitFactor": 4.8,
+      "bestTrade": 2,
+      "worstTrade": -1,
+      "maxDD": -1,
+      "currentDD": 0
+    },
+    "computeProfitFactor": 4.8,
+    "computeAverageRealizedR": 0.76,
+    "computeExpectancy": 0.6333333333333333,
+    "getCurrentCapital": 1053.4940000000001,
+    "otFloatingR": [
+      0.5,
+      0.5,
+      1.25,
+      0.4,
+      "-0"
+    ],
+    "otFloatingPnl": [
+      5.267470000000001,
+      10.534940000000002,
+      12.767470000000001,
+      4.2139760000000015,
+      "-0"
+    ],
+    "migrateTradesPlannedRealized": {
+      "changed": true,
+      "trades": [
+        {
+          "id": 1,
+          "date": "2026-01-02",
+          "time": "10:00",
+          "actif": "XAUUSD",
+          "sens": "Buy",
+          "risk": 1,
+          "result": "TP",
+          "rr": 2,
+          "realizedR": 2,
+          "plannedR": null,
+          "capitalAtEntry": null,
+          "riskAmountAtEntry": null,
+          "realizedPnL": null
+        },
+        {
+          "id": 2,
+          "date": "2026-01-03",
+          "time": "10:00",
+          "actif": "EURUSD",
+          "sens": "Sell",
+          "risk": 1,
+          "result": "SL",
+          "rr": -0.5,
+          "entry": 1.1,
+          "sl": 1.105,
+          "tp": 1.09,
+          "realizedR": -0.5,
+          "plannedR": 2.0000000000000444,
+          "capitalAtEntry": null,
+          "riskAmountAtEntry": null,
+          "realizedPnL": null
+        },
+        {
+          "id": 3,
+          "date": "2026-01-04",
+          "time": "10:00",
+          "actif": "US30",
+          "sens": "Buy",
+          "risk": 1,
+          "result": null,
+          "realizedR": null,
+          "rr": null,
+          "plannedR": null,
+          "capitalAtEntry": null,
+          "riskAmountAtEntry": null,
+          "realizedPnL": null
+        },
+        {
+          "id": 4,
+          "date": "2026-01-05",
+          "time": "10:00",
+          "actif": "XAUUSD",
+          "sens": "Buy",
+          "risk": 1,
+          "realizedR": 1,
+          "rr": 1,
+          "result": "TP",
+          "plannedR": 2,
+          "capitalAtEntry": 1000,
+          "riskAmountAtEntry": 10,
+          "realizedPnL": 10
+        },
+        {
+          "id": 5,
+          "date": "2026-01-06",
+          "time": "10:00",
+          "actif": "XAUUSD",
+          "sens": "Buy",
+          "risk": 1,
+          "rr": 1,
+          "entry": 100,
+          "sl": 90,
+          "tpDetails": [
+            {
+              "price": 110,
+              "pct": 50
+            },
+            {
+              "price": 120,
+              "pct": 50
+            }
+          ],
+          "realizedR": 1,
+          "plannedR": 1.5,
+          "result": "TP",
+          "capitalAtEntry": null,
+          "riskAmountAtEntry": null,
+          "realizedPnL": null
+        }
+      ],
+      "idempotent": true
+    }
+  }
+}
