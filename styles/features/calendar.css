@@ -1,0 +1,52 @@
+  /* ============================= CALENDRIER DE TRADING ============================= */
+  .cal-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;}
+  .cal-title{font-family:var(--font-display);font-size:15.5px;font-weight:600;color:var(--text);min-width:140px;text-align:center;}
+  .cal-wrap{display:flex;flex-direction:column;gap:6px;}
+  .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .cal-weekdays div{text-align:center;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);padding-bottom:2px;}
+  .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .cal-cell{
+    aspect-ratio:1/1;border-radius:10px;background:var(--bg-elevated);border:1px solid var(--border-soft);
+    padding:7px;display:flex;flex-direction:column;gap:2px;overflow:hidden;
+    transition:background-color .2s ease-in-out,border-color .2s ease-in-out;
+  }
+  .cal-cell-empty{background:transparent;border-color:transparent;}
+  .cal-daynum{font-size:11px;color:var(--text-faint);font-weight:600;}
+  .cal-amount{font-size:12px;font-weight:700;line-height:1.2;}
+  .cal-count{font-size:9.5px;color:var(--text-faint);}
+  .cal-cell.cal-pos{background:var(--green-soft);border-color:transparent;}
+  .cal-cell.cal-pos .cal-daynum{color:var(--text);opacity:.7;}
+  .cal-cell.cal-pos .cal-amount{color:var(--green);}
+  .cal-cell.cal-pos .cal-count{color:var(--green);opacity:.75;}
+  .cal-cell.cal-neg{background:var(--red-soft);border-color:transparent;}
+  .cal-cell.cal-neg .cal-daynum{color:var(--text);opacity:.7;}
+  .cal-cell.cal-neg .cal-amount{color:var(--red);}
+  .cal-cell.cal-neg .cal-count{color:var(--red);opacity:.75;}
+  /* Version compacte (widget Dashboard) : cellules plus petites, montants abrégés */
+  .cal-compact .cal-weekdays div{font-size:9px;}
+  .cal-compact .cal-days{gap:4px;}
+  .cal-compact .cal-cell{border-radius:7px;padding:4px;gap:0;}
+  .cal-compact .cal-daynum{font-size:9.5px;}
+  .cal-compact .cal-amount{font-size:9.5px;}
+  .cal-compact .cal-count{display:none;}
+  @media (max-width:640px){
+    .cal-amount{font-size:10.5px;}
+    .cal-count{display:none;}
+  }
+
+  /* ---- Bande d'aperçu des mois suivants (mini-calendriers) ---- */
+  .cal-mini-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media (max-width:900px){.cal-mini-strip{grid-template-columns:repeat(2,1fr);}}
+  .cal-mini{display:flex;flex-direction:column;gap:6px;}
+  .cal-mini-title{font-size:11.5px;font-weight:700;color:var(--text-dim);text-align:center;}
+  .cal-mini-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+  .cal-mini-weekdays div{text-align:center;font-size:8px;color:var(--text-faint);}
+  .cal-mini-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+  .cal-mini-cell{
+    aspect-ratio:1/1;border-radius:3px;background:var(--bg-elevated);
+    display:flex;align-items:center;justify-content:center;font-size:7.5px;color:var(--text-faint);
+  }
+  .cal-mini-cell.cal-pos{background:var(--green);color:var(--primary-contrast);opacity:.85;}
+  .cal-mini-cell.cal-neg{background:var(--red);color:var(--primary-contrast);opacity:.85;}
+  .cal-mini-cell-empty{background:transparent;}
+

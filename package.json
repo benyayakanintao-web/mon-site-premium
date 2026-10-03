@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "node tools/serve.mjs",
     "test": "node tests/run-tests.mjs",
-    "test:update-baseline": "node tests/run-tests.mjs --update-baseline"
+    "test:update-baseline": "node tests/run-tests.mjs --update-baseline",
+    "test:visual": "node tests/visual/compare-styles.mjs"
   },
   "devDependencies": {
     "puppeteer-core": "^24.0.0"

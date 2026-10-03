@@ -1,0 +1,108 @@
+  :root{
+    --bg:#080B10;
+    --bg-elevated:var(--bg-elevated);
+    --bg-card:#11161D;
+    --bg-card-2:#141A22;
+    --bg-modal:var(--bg-modal);
+    --bg-hover:var(--bg-hover);
+    --track-bg:var(--track-bg);
+    --border:#1F2733;
+    --border-soft:#181F2A;
+    --border-hover:var(--border-hover);
+    --text:#EAEDF2;
+    --text-dim:#8C97A8;
+    --text-faint:#5B6577;
+    --green:#33D69F;
+    --green-soft:#1B4A3C;
+    --green-glow:rgba(51,214,159,.28);
+    --red:#FB6B7C;
+    --red-soft:#4A1E28;
+    --red-glow:rgba(251,107,124,.25);
+    --amber:#F5A623;
+    --amber-soft:#3A3320;
+    --be:#5B6577;
+    --be-soft:#232A35;
+    /* ===== Tokens graphiques (Chart.js + canvas) ===== */
+    --chart-grid:var(--bg-hover);
+    --chart-tick:#5B6577;
+    --chart-tooltip-bg:var(--bg-hover);
+    --chart-tooltip-border:#1F2733;
+    --chart-tooltip-text:#EAEDF2;
+    --chart-secondary:#D9A066;
+    --chart-track:var(--track-bg);
+    /* ===== Design tokens du thème (personnalisables) ===== */
+    /* Valeurs par défaut = identiques à l'ancien --green, pour un rendu 100% inchangé tant que l'utilisateur ne personnalise rien */
+    --primary:#33D69F;
+    --primary-hover:#28BD8A;
+    --primary-active:#1F9E73;
+    --primary-soft:#1B4A3C;
+    --primary-border:#276450;
+    --primary-glow:rgba(51,214,159,.28);
+    --primary-bg:rgba(51,214,159,.10);
+    --primary-contrast:#052117;
+    /* ===== Alias explicites (nomenclature demandée) — mêmes valeurs, calculés dynamiquement par thème ===== */
+    --background-primary:var(--bg);
+    --background-secondary:var(--bg-elevated);
+    --surface-card:var(--bg-card);
+    --text-primary:var(--text);
+    --text-secondary:var(--text-dim);
+    --text-muted:var(--text-faint);
+    --border-color:var(--border);
+    --button-primary:var(--primary);
+    --button-text:var(--primary-contrast);
+    --icon-color:var(--text-dim);
+    --logo-color:var(--primary-contrast);
+    --font-display:'Space Grotesk', 'Inter', sans-serif;
+    --font-body:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+
+  /* ============================= SCROLLBARS PREMIUM ============================= */
+  /* Fines, quasi invisibles au repos, discrètes pendant le défilement, jamais "système".
+     S'appuie uniquement sur les tokens de thème existants (--border, --text-faint, --text-dim)
+     afin de s'adapter automatiquement à n'importe quel thème choisi par l'utilisateur. */
+  *{
+    scrollbar-width:thin;
+    scrollbar-color:var(--primary-border) transparent;
+  }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{
+    background-color:var(--primary-border);
+    border-radius:20px;
+    border:2px solid transparent;
+    background-clip:padding-box;
+    transition:background-color .25s ease-in-out;
+  }
+  ::-webkit-scrollbar-thumb:hover{ background-color:var(--primary); }
+  ::-webkit-scrollbar-thumb:active{ background-color:var(--primary-hover); }
+  ::-webkit-scrollbar-corner{ background:transparent; }
+  /* Renforcement discret pendant un défilement actif (classe posée/retirée en JS), puis
+     disparition progressive automatique une fois le défilement arrêté. */
+  .is-scrolling{ scrollbar-color:var(--primary) transparent; }
+  .is-scrolling::-webkit-scrollbar-thumb{ background-color:var(--primary); }
+  /* ---- Transition douce entre thèmes : les couleurs (fond, texte, bordures, ombres) glissent d'une
+     palette à l'autre au lieu de basculer brutalement. Les éléments qui ont déjà leur propre transition
+     de survol (icônes, onglets...) plus bas dans la feuille conservent leur timing, plus réactif. ---- */
+  body, .panel, .card, .modal, .overlay-content, input, select, textarea,
+  .btn, .tag, .badge, .seg, table.log td, table.bilan td, .ot-card, .theme-lib-card,
+  .stat-card, .row-actions .icon-btn {
+    transition: background-color .32s ease, color .32s ease, border-color .32s ease, box-shadow .32s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(51,214,159,.06), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 90% 0%, rgba(251,107,124,.05), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    min-height:100vh;
+    display:flex;
+    align-items:stretch;
+  }
+  .wrap{max-width:1500px;margin:0 auto;}
+

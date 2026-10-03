@@ -12,20 +12,11 @@ import path from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 import puppeteer from 'puppeteer-core';
 import { startServer, ROOT, APP_PAGE } from '../tools/serve.mjs';
+import { findBrowser } from './browser.mjs';
 
 const UPDATE = process.argv.includes('--update-baseline');
 const BASELINE_FILE = path.join(ROOT, 'tests', 'baseline', 'wtx-baseline.json');
 const RESULTS_DIR = path.join(ROOT, 'test-results');
-
-const BROWSER_CANDIDATES = [
-  process.env.CHROME_PATH,
-  'C:/Program Files/Google/Chrome/Application/chrome.exe',
-  'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
-  'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
-  'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
-  '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-].filter(Boolean);
 
 const NOT_HANDLERS = new Set(['if', 'return', 'function', 'typeof', 'new', 'void', 'await', 'event', 'this', 'window', 'document']);
 
@@ -60,8 +51,7 @@ function diffKeys(actual, expected, prefix = ''){
 }
 
 async function main(){
-  const executablePath = BROWSER_CANDIDATES.find(p => existsSync(p));
-  if(!executablePath) throw new Error('Aucun navigateur Chrome/Edge trouvé — définir CHROME_PATH.');
+  const executablePath = findBrowser();
 
   const server = await startServer(0);
   const baseUrl = `http://127.0.0.1:${server.address().port}`;

@@ -1,0 +1,109 @@
+  /* ============================= DASHBOARD MODULAIRE (WIDGETS) ============================= */
+
+
+  .widget-grid{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;transition:background-color .2s ease-in-out;}
+  .widget{
+    position:relative;flex:0 0 auto;width:100%;min-width:240px;min-height:110px;
+    background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;
+    resize:none;overflow:hidden;box-sizing:border-box;
+    transition:background-color .32s ease,border-color .32s ease,opacity .18s ease-in-out,box-shadow .18s ease-in-out,outline-color .18s ease-in-out;
+  }
+  @media (max-width:1100px){
+    .widget{width:100% !important;height:auto !important;resize:none !important;}
+  }
+  /* En mode édition : coin de redimensionnement natif du navigateur, 100% libre (aucun palier imposé) */
+  .widget-grid.editing .widget{resize:both;overflow:auto;}
+  .widget[data-hidden="true"]{display:none;}
+  .widget.grabbed{
+    transition:transform .16s cubic-bezier(.34,1.56,.64,1),box-shadow .16s ease-in-out;
+    transform:scale(1.03);
+    box-shadow:0 26px 50px -16px rgba(0,0,0,.5),0 0 0 1px var(--primary-border) inset;
+    cursor:grabbing;
+  }
+  .widget.drag-over{box-shadow:0 0 0 2px var(--primary) inset;}
+  .widget.resizing{transition:none !important;box-shadow:0 0 0 2px var(--primary) inset,0 16px 34px -12px rgba(0,0,0,.4);z-index:3;}
+  .widget-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .widget-drag-handle{
+    cursor:grab;color:var(--text-faint);font-size:15px;user-select:none;line-height:1;touch-action:none;
+    opacity:0;width:0;overflow:hidden;pointer-events:none;transition:opacity .2s ease-in-out,width .2s ease-in-out;
+  }
+  .widget-drag-handle:active{cursor:grabbing;}
+
+  /* ---- Mode "Personnaliser le Dashboard" : poignées, grille de guidage et redimensionnement apparaissent ---- */
+  .widget-grid.editing{
+    background-image:radial-gradient(var(--border-hover) 1px, transparent 1px);
+    background-size:22px 22px;
+    border-radius:16px;
+  }
+  .widget-grid.editing .widget{outline:1.5px dashed var(--border-hover);outline-offset:3px;}
+  .widget-grid.editing .widget-drag-handle{opacity:1;width:15px;pointer-events:auto;}
+  .widget-title{font-family:var(--font-display);font-size:15.5px;font-weight:600;min-width:0;color:var(--text);white-space:nowrap;}
+  .widget-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
+  .widget-body{display:flex;flex-direction:column;}
+
+  /* ---- Menu contextuel "⋯" de widget : invisible en utilisation normale, ne s'affiche qu'en mode édition ---- */
+  .widget-menu-btn{
+    font-weight:700;letter-spacing:1px;
+    opacity:0;width:0;min-width:0;padding:0;border-width:0;overflow:hidden;pointer-events:none;
+    transition:opacity .2s ease-in-out,width .2s ease-in-out,padding .2s ease-in-out,border-width .2s ease-in-out;
+  }
+  .widget-grid.editing .widget-menu-btn{
+    opacity:1;width:26px;min-width:26px;padding:0;border-width:1px;pointer-events:auto;
+  }
+
+  /* ---- Poignées de redimensionnement vertical (haut / bas), fluides, actives en mode édition ---- */
+  .widget-resize-edge{
+    position:absolute;left:50%;width:36px;height:11px;border-radius:6px;
+    background:var(--bg-elevated);border:1.5px solid var(--border-hover);cursor:ns-resize;
+    display:flex;align-items:center;justify-content:center;z-index:2;
+    opacity:0;pointer-events:none;transform:translateX(-50%) scale(.6);
+    transition:opacity .2s ease-in-out,transform .22s cubic-bezier(.34,1.56,.64,1),background-color .18s ease-in-out,
+               border-color .18s ease-in-out,box-shadow .18s ease-in-out;
+  }
+  .widget-resize-edge::before{content:'';width:14px;height:2px;border-radius:2px;background:var(--text-faint);}
+  .widget-resize-edge.edge-top{top:-6px;}
+  .widget-resize-edge.edge-bottom{bottom:-6px;}
+  .widget-grid.editing .widget-resize-edge{opacity:1;pointer-events:auto;transform:translateX(-50%) scale(1);}
+  .widget-resize-edge:hover{background:var(--primary);border-color:var(--primary);box-shadow:0 0 10px var(--primary-glow);}
+  .widget-resize-edge:hover::before{background:var(--primary-contrast);}
+  .widget-menu{
+    position:fixed;z-index:70;min-width:196px;background:var(--bg-modal);border:1px solid var(--border);
+    border-radius:11px;padding:6px;box-shadow:0 14px 34px rgba(0,0,0,.35);
+    animation:widgetMenuIn .14s ease-out;
+  }
+  @keyframes widgetMenuIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+  .widget-menu-item{
+    display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border-radius:8px;background:none;border:none;
+    color:var(--text);font-family:var(--font-body);font-size:12.5px;font-weight:600;cursor:pointer;text-align:left;
+    transition:background-color .15s ease-in-out;
+  }
+  .widget-menu-item:hover{background:var(--bg-hover);}
+  .widget-menu-item .wmi-ico{width:16px;text-align:center;flex-shrink:0;font-size:13px;color:var(--text-faint);}
+  .widget-menu-sep{height:1px;background:var(--border-soft);margin:5px 2px;}
+
+  /* ---- Flash discret de confirmation lors de l'actualisation d'un widget ---- */
+  .widget.widget-refreshed{animation:widgetRefreshPulse .55s ease-in-out;}
+  @keyframes widgetRefreshPulse{
+    0%{box-shadow:0 0 0 2px var(--primary-glow) inset;}
+    100%{box-shadow:none;}
+  }
+
+  /* ---- Mode plein écran d'un widget ---- */
+  .widget.widget-fullscreen{
+    position:fixed;top:26px;left:26px;right:26px;bottom:26px;z-index:65;overflow:auto;
+    width:auto !important;height:auto !important;resize:none !important;
+    box-shadow:0 26px 60px rgba(0,0,0,.5);
+  }
+  .widget-fullscreen-backdrop{display:none;position:fixed;inset:0;background:rgba(4,6,9,.6);z-index:64;opacity:0;transition:opacity .22s ease;}
+  .widget-fullscreen-backdrop.show{display:block;}
+  .widget-fullscreen-backdrop.open{opacity:1;}
+
+  /* ---- Mini contenu "à venir" à l'intérieur d'un widget (Calendrier, Objectifs, IA Trading...) ---- */
+  .widget-placeholder-mini{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:4px 2px;color:var(--text-dim);}
+  .widget-placeholder-mini p{font-size:12px;line-height:1.5;margin:0;color:var(--text-dim);}
+  .widget-placeholder-mini .btn{font-size:12px;padding:6px 12px;align-self:flex-start;}
+  .ph-mini-badge{
+    font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--primary);
+    background:var(--primary-bg);padding:3px 9px;border-radius:20px;
+  }
+

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-WT-X ("walltrade X") is a trading journal / dashboard ("Journal de Trading") built as **one self-contained HTML file**: `Journal_Trading_Dashboard_CMVP2_FinalGaps_Fix3.html` (~10.9k lines, ~600 KB), the current working version. The UI, code comments, and identifiers are mostly in **French**; keep new UI text and comments in French to match.
+WT-X ("walltrade X") is a trading journal / dashboard ("Journal de Trading") being restructured from one monolithic HTML file into modules, one phase at a time. The page is `Journal_Trading_Dashboard_CMVP2_FinalGaps_Fix3.html` (~9.3k lines: markup and one big `<script>`). Its CSS has already been extracted to `styles/`. The UI, code comments, and identifiers are mostly in **French**; keep new UI text and comments in French to match.
 
 There is no build step or linter. Node.js is only used for the local server and the test runner. External dependencies are CDN scripts only: Chart.js 4.4.4 (cdnjs, with a jsdelivr fallback loaded at runtime) and SheetJS/xlsx 0.18.5, plus Google Fonts.
 
@@ -15,7 +15,10 @@ npm install                  # once: installs puppeteer-core (drives the locally
 npm run serve                # serves the app at http://127.0.0.1:8080/ (PORT=… to change); never open it via file://
 npm test                     # full automated check, must print OK
 npm run test:update-baseline # rewrites tests/baseline/wtx-baseline.json, ONLY after an explicitly decided business-rule change
+npm run test:visual          # computed-style diff vs git tag wtx-baseline-pre-refactor (REF=… to change, VP=desktop-1440 for one viewport)
 ```
+
+`npm run test:visual` (`tests/visual/compare-styles.mjs`) loads the reference page (extracted from Git) and the current page side by side, in two separate headless browsers. For every view and four viewports (1440, 1000 and 390 px screen, plus 1440 print), it compares the sorted computed styles of every element, including `::before`/`::after`. The run takes about 6–7 min. Run it after any change to markup or CSS; it must report 0 differences unless a visual change was intended. Screenshots are written to `test-results/visual/`.
 
 `npm test` (`tests/run-tests.mjs`) serves the page, opens it in headless Chrome/Edge (`CHROME_PATH` overrides the browser) and checks four things:
 1. The app starts with no JS error.
@@ -27,9 +30,13 @@ Any characterization diff is a regression unless a business change was explicitl
 
 ## File layout
 
-- Lines ~1–1579: one `<style>` block. Design tokens are CSS custom properties on `:root`. Some tokens are self-referencing placeholders (e.g. `--bg-elevated:var(--bg-elevated)`); the theme engine sets the real values at runtime with `style.setProperty`, so change colors through the theme engine, not only in `:root`.
-- Lines ~1581–2874: HTML markup. Each app page is a `<section class="view" id="view-…">` (dashboard, trades-en-cours, comptes, bilans, calendrier, rapports, backtesting, playbook, notebook, plus placeholder views). `showView(id)` switches between them. Most interaction goes through inline `onclick="…"` handlers that call global functions.
-- Lines ~2875–10867: one `<script>`, made of sections with banner comments like `/* ===== STORAGE ===== */`, `/* ===== MODULE PLAYBOOK ===== */`, `/* ===== NOTEBOOK : moteur ===== */`, `/* ===== INIT ===== */`. To find a feature, grep for its banner. Line numbers shift after every edit, so use `Edit` with unique string anchors.
+- CSS lives in `styles/` and is loaded by `<link>` tags in `<head>`. These files are **contiguous slices of the original single `<style>` block**, and their load order reproduces the original cascade exactly. Never reorder the `<link>` tags. Never move a rule to another file, because that changes its position in the cascade, unless `npm run test:visual` proves no difference. Because the original CSS was interleaved, a file may hold rules outside its name:
+  - `components.css` holds the topbar, buttons, cards, limits, stat cards, account panel, panels/segments, the log table and tags;
+  - `forms.css` also holds `.modal h3`, `.modal-actions`, the Multi-TP indicator `.ot-tp-progress` and `footer`;
+  - `signature.css` is a late visual override layer and must stay last.
+- Design tokens are CSS custom properties on `:root` in `styles/base.css`. Some tokens are self-referencing placeholders (e.g. `--bg-elevated:var(--bg-elevated)`); the theme engine sets the real values at runtime with `style.setProperty`, so change colors through the theme engine, not only in `:root`.
+- Lines ~28–1321 of the page: HTML markup. Each app page is a `<section class="view" id="view-…">` (dashboard, trades-en-cours, comptes, bilans, calendrier, rapports, backtesting, playbook, notebook, plus placeholder views). `showView(id)` switches between them. Most interaction goes through inline `onclick="…"` handlers that call global functions.
+- Lines ~1322–9314: one `<script>`, made of sections with banner comments like `/* ===== STORAGE ===== */`, `/* ===== MODULE PLAYBOOK ===== */`, `/* ===== NOTEBOOK : moteur ===== */`, `/* ===== INIT ===== */`. To find a feature, grep for its banner. Line numbers shift after every edit, so use `Edit` with unique string anchors.
 
 ## Architecture
 

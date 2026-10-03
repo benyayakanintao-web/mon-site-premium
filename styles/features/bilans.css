@@ -1,0 +1,56 @@
+  /* breakdown panels */
+  .panels-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  @media (max-width:1100px){.panels-grid{grid-template-columns:1fr;}}
+  .panel-sub{font-size:12px;color:var(--text-dim);margin:-8px 0 14px;}
+  table.bilan{width:100%;border-collapse:collapse;font-size:12.8px;}
+  table.bilan th{
+    text-align:left;color:var(--text-faint);font-weight:600;font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.4px;padding:0 8px 9px;border-bottom:1px solid var(--border);
+  }
+  table.bilan th:not(:first-child), table.bilan td:not(:first-child){text-align:right;}
+  table.bilan td{padding:8px;border-bottom:1px solid var(--border-soft);color:var(--text);font-variant-numeric:tabular-nums;}
+  table.bilan tr:last-child td{border-bottom:none;}
+  table.bilan tbody tr.best{background:rgba(51,214,159,.07);}
+  table.bilan tbody tr.worst{background:rgba(251,107,124,.06);}
+  /* ---- disposition tableau + mini-graphique intégré (Bilan par sens / par actif) ---- */
+  /* Le graphique reste une colonne étroite et fixe : le tableau garde presque tout l'espace, comme avant. */
+  .bilan-split{display:flex;gap:12px;align-items:stretch;}
+  .bilan-split > .bilan-table-col{flex:1;min-width:0;}
+  .bilan-split > .bilan-chart-col{flex:0 0 108px;min-width:0;display:flex;align-items:center;}
+  .bilan-split > .bilan-chart-col canvas{max-width:100%;}
+  @media (max-width:900px){.bilan-split > .bilan-chart-col{flex:0 0 88px;}}
+  @media (max-width:680px){
+    .bilan-split{flex-direction:column;}
+    .bilan-split > .bilan-chart-col{flex:0 0 auto;width:100%;height:90px;}
+  }
+  .bilan-chart-below{margin-top:14px;padding-top:14px;border-top:1px solid var(--border-soft);}
+  .scroll-y{max-height:270px;overflow-y:auto;}
+  .best-badge{
+    display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+    background:var(--green-soft);color:var(--green);padding:6px 12px;border-radius:8px;margin-top:10px;
+  }
+  .badge-chip{display:inline-flex;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600;}
+  .chip-buy{background:var(--green-soft);color:var(--green);}
+  .chip-sell{background:var(--red-soft);color:var(--red);}
+  .chip-ctx-reversal{background:var(--amber-soft);color:var(--amber);}
+  .chip-ctx-continuation{background:var(--primary-soft);color:var(--primary);}
+  .chip-ctx-retracement{background:var(--be-soft);color:var(--be);}
+
+  /* log filters */
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .filter-row select{
+    background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--text);
+    padding:7px 10px;font-size:12.5px;font-family:var(--font-body);cursor:pointer;
+    transition:border-color .18s ease-in-out,background-color .18s ease-in-out;
+  }
+  .filter-row select:hover{border-color:var(--border-hover);background:var(--bg-hover);}
+  .filter-row select:focus{outline:none;border-color:var(--primary);}
+  .filter-row input[type="date"]{
+    background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--text);
+    padding:6px 9px;font-size:12.5px;font-family:var(--font-body);color-scheme:dark;
+    transition:border-color .18s ease-in-out,background-color .18s ease-in-out;
+  }
+  .filter-row input[type="date"]:hover{border-color:var(--border-hover);background:var(--bg-hover);}
+  .filter-row input[type="date"]:focus{outline:none;border-color:var(--primary);}
+  .filter-row .date-sep{color:var(--text-faint);font-size:12px;}
+

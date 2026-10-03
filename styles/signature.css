@@ -1,0 +1,117 @@
+  /* ================= SIDEBAR VISUAL LANGUAGE — WT-X =================
+     Visuel uniquement : structure, textes, ordre, actions et logique inchangés. */
+  .sidebar{
+    background:linear-gradient(180deg,var(--bg-card),color-mix(in srgb,var(--bg-card) 90%,var(--bg) 10%));
+  }
+  .nav-section{gap:5px;padding-bottom:17px;margin-bottom:17px;border-bottom-color:color-mix(in srgb,var(--border-soft) 72%,transparent);}
+  .nav-section-title{font-size:10px;letter-spacing:.12em;padding:4px 11px 10px;color:var(--text-faint);}
+  .nav-item{
+    gap:13px;min-height:46px;padding:9px 11px;border-radius:13px;font-size:14px;font-weight:600;
+    transition:background-color .22s ease,color .2s ease,transform .22s ease,box-shadow .22s ease;
+  }
+  .nav-item .nav-label{letter-spacing:.05px;}
+  .nav-item:hover{background:color-mix(in srgb,var(--bg-hover) 78%,transparent);color:var(--text);transform:translateX(2px);}
+  .nav-item.active{
+    background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 15%,var(--bg-card) 85%),color-mix(in srgb,var(--primary) 7%,var(--bg-card) 93%));
+    box-shadow:0 0 0 1px color-mix(in srgb,var(--primary) 30%,transparent) inset,0 8px 22px -14px var(--primary-glow);
+  }
+  .nav-ico-chip{
+    width:34px;height:34px;border-radius:10px;background:transparent;position:relative;
+    transition:transform .22s cubic-bezier(.34,1.56,.64,1),filter .22s ease;
+  }
+  .nav-item .nav-ico{font-size:21px;line-height:1;filter:saturate(1.2) brightness(1.08);}
+  .chip-trading,.chip-analyse,.chip-outils,.chip-compte{background:transparent;}
+  .nav-item.active .nav-ico-chip{transform:scale(1.08);filter:drop-shadow(0 0 5px var(--primary-glow));}
+  .nav-item.active .nav-ico{filter:saturate(1.35) brightness(1.18);}
+  .nav-active-indicator{box-shadow:0 0 14px 1px var(--primary-glow);}
+  .nav-item.active .wtx-heartline{opacity:1;}
+  .sidebar.collapsed .nav-item{min-height:46px;}
+  .sidebar.collapsed .nav-ico-chip{width:34px;height:34px;}
+  @media (max-width:900px){
+    .nav-item{min-height:48px;padding-top:10px;padding-bottom:10px;}
+  }
+
+  /* Icônes SVG de la sidebar : style net, aéré et coloré, sans emoji ni modification de structure. */
+  .nav-item .nav-ico svg{width:23px;height:23px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+  .nav-item .nav-ico{display:flex;align-items:center;justify-content:center;color:var(--text-dim);}
+  .nav-item:hover .nav-ico,.nav-item.active .nav-ico{color:var(--primary);}
+  .nav-item:nth-child(2) .nav-ico{color:color-mix(in srgb,var(--primary) 72%,#a9b8ff 28%);}
+  .nav-item:nth-child(3) .nav-ico{color:color-mix(in srgb,var(--primary) 65%,#c9a7ff 35%);}
+  .nav-section:nth-child(2) .nav-ico{color:color-mix(in srgb,var(--primary) 68%,#b7a8ff 32%);}
+  .nav-section:nth-child(3) .nav-ico{color:color-mix(in srgb,var(--primary) 72%,#75d9e8 28%);}
+  .nav-section:nth-child(4) .nav-ico{color:color-mix(in srgb,var(--primary) 60%,var(--amber) 40%);}
+  .nav-item.active .nav-ico{color:var(--primary);}
+  .sidebar.collapsed .nav-item .nav-ico svg{width:22px;height:22px;}
+
+  /* ===== Refinement premium des conteneurs d’icônes — visuel uniquement ===== */
+  .nav-item .nav-ico-chip{
+    width:32px;height:32px;min-width:32px;border-radius:8px;
+    background:color-mix(in srgb,var(--primary) 9%,var(--bg-card) 91%);
+    border:1px solid color-mix(in srgb,var(--primary) 11%,transparent);
+    box-shadow:inset 0 1px 0 color-mix(in srgb,var(--text) 5%,transparent);
+    display:flex;align-items:center;justify-content:center;
+    transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease,filter .2s ease;
+  }
+  .nav-item:hover .nav-ico-chip{
+    background:color-mix(in srgb,var(--primary) 15%,var(--bg-card) 85%);
+    border-color:color-mix(in srgb,var(--primary) 23%,transparent);
+    box-shadow:inset 0 1px 0 color-mix(in srgb,var(--text) 7%,transparent),0 3px 10px -8px var(--primary-glow);
+  }
+  .nav-item.active .nav-ico-chip{
+    background:color-mix(in srgb,var(--primary) 12%,var(--bg-card) 88%);
+    border-color:color-mix(in srgb,var(--primary) 19%,transparent);
+    box-shadow:inset 0 1px 0 color-mix(in srgb,var(--primary) 12%,transparent),0 3px 12px -9px var(--primary-glow);
+  }
+  .nav-item .nav-ico svg{width:21px;height:21px;stroke-width:1.85;}
+  .nav-item .nav-ico{filter:saturate(1.06) brightness(1.04);}
+  .nav-item:hover .nav-ico{filter:saturate(1.12) brightness(1.12);}
+  .nav-item.active .nav-ico{filter:saturate(1.16) brightness(1.12);}
+  .sidebar.collapsed .nav-item .nav-ico-chip{width:32px;height:32px;min-width:32px;}
+
+  /* ===== Signature WT-X étendue : liaison sidebar → limites & règles ===== */
+  .widget[data-widget-id="limites"]{position:relative;overflow:visible;}
+  .widget[data-widget-id="limites"]>.widget-header,.widget[data-widget-id="limites"]>.widget-body{position:relative;z-index:1;}
+  .widget[data-widget-id="limites"]{padding:0;background:transparent;border-color:transparent;}
+  .widget[data-widget-id="limites"]>.widget-body{padding:0;}
+  .widget[data-widget-id="statCapital"],
+  .widget[data-widget-id="statWinrate"],
+  .widget[data-widget-id="statDrawdown"]{margin-top:4px;margin-bottom:16px;position:relative;top:13px;}
+  .wtx-limits-extension{
+    position:absolute;left:-30px;top:-40px;width:calc(100% + 30px);height:190px;
+    z-index:3;pointer-events:none;overflow:visible;color:var(--primary);
+    opacity:.92;filter:drop-shadow(0 0 3px var(--primary-glow));
+    transform:translateZ(0);transform-origin:0 0;
+  }
+  .wtx-limits-extension .wtx-extension-line{
+    fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;
+    vector-effect:non-scaling-stroke;
+  }
+
+  /* Les cartes statistiques inférieures se modulent depuis leur bord inférieur.
+     Leur bord supérieur reste fixe afin de préserver la distance avec la heartbeat. */
+  .widget-grid.editing > .widget[data-widget-id="statCapital"],
+  .widget-grid.editing > .widget[data-widget-id="statWinrate"],
+  .widget-grid.editing > .widget[data-widget-id="statDrawdown"]{
+    resize:both;
+    overflow:auto;
+  }
+  .widget-grid.editing > .widget[data-widget-id="statCapital"] > .edge-top,
+  .widget-grid.editing > .widget[data-widget-id="statWinrate"] > .edge-top,
+  .widget-grid.editing > .widget[data-widget-id="statDrawdown"] > .edge-top{
+    pointer-events:none;
+    opacity:0;
+  }
+  .widget-grid.editing > .widget[data-widget-id="statCapital"] > .edge-bottom,
+  .widget-grid.editing > .widget[data-widget-id="statWinrate"] > .edge-bottom,
+  .widget-grid.editing > .widget[data-widget-id="statDrawdown"] > .edge-bottom{
+    pointer-events:auto;
+  }
+
+  /* En mode redimensionnement, la bounding box du bloc supérieur englobe
+     exactement les cartes rendues, y compris leur décalage visuel interne.
+     La compensation conserve la position de la rangée statistique inférieure. */
+  .widget-grid.editing > .widget[data-widget-id="limites"]{
+    height:125px;
+    min-height:0;
+    margin-bottom:-15px;
+  }

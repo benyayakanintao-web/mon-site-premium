@@ -1,0 +1,65 @@
+  .modal h3{font-family:var(--font-display);margin:0 0 16px;font-size:17px;}
+  .field{margin-bottom:13px;}
+  .field label{display:block;font-size:12.5px;color:var(--text-dim);margin-bottom:5px;font-weight:600;}
+  .field input, .field select{
+    width:100%;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--text);
+    padding:9px 11px;font-size:13.5px;font-family:var(--font-body);
+    transition:border-color .18s ease-in-out,background-color .18s ease-in-out;
+  }
+  .field input:hover, .field select:hover{border-color:var(--border-hover);background:var(--bg-hover);}
+  .field input:focus, .field select:focus{outline:none;border-color:var(--primary);}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  /* ---- Groupe de 3 champs liés sur une même ligne (Risque %/$/Lots — "Ouvrir une position") : 3
+     colonnes sur desktop, empilé en 1 colonne sur mobile pour rester lisible. ---- */
+  .field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  @media (max-width:520px){ .field-row-3{grid-template-columns:1fr;} }
+  /* ---- Séparation de groupe DISCRÈTE, sans titre (remplace les anciens titres de section "Structure
+     du trade" / "Gestion du risque" — carte compacte et premium, hiérarchie par espacement/bordure
+     uniquement, jamais par un gros libellé). ---- */
+  .p-group-start{margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);}
+  /* ---- Champs calculés automatiquement (Planned R) : jamais saisis manuellement, visuellement
+     distingués (fond légèrement estompé, curseur "not-allowed"). Risque $/Lots ne portent plus cette
+     classe : ils sont désormais éditables (système de risque bidirectionnel). ---- */
+  .field-calculated{background:var(--bg-card-2)!important;opacity:.82;cursor:not-allowed;}
+  /* Indicateur "Source" très discret à côté du champ actuellement source parmi Risque%/Risque$/Lots —
+     pas de badge, juste un petit libellé muted (aussi réutilisé pour le tag "(calculé)" de Planned R). */
+  .field-calc-tag{font-size:10px;color:var(--text-faint);font-weight:600;text-transform:none;letter-spacing:0;}
+  /* ---- Carte "Ouvrir une position" : espacements resserrés (densité type plateforme de trading), sans
+     toucher aux marges des AUTRES modals de l'application (règle scopée à #positionOverlay). ---- */
+  #positionOverlay .field{margin-bottom:8px;}
+  #positionOverlay .field label{margin-bottom:3px;}
+  #positionOverlay .field-row, #positionOverlay .field-row-3{gap:8px;}
+  #positionOverlay .modal-actions{margin-top:14px;}
+  /* ---- Take Profit multiples ("Ouvrir une position") ---- */
+  .tp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+  .tp-row-label{flex:0 0 32px;font-size:12px;font-weight:700;color:var(--text-dim);}
+  .tp-row-input{
+    flex:1;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--text);
+    padding:8px 10px;font-size:13px;font-family:var(--font-body);
+    transition:border-color .18s ease-in-out,background-color .18s ease-in-out;
+  }
+  .tp-row-input:hover{border-color:var(--border-hover);background:var(--bg-hover);}
+  .tp-row-input:focus{outline:none;border-color:var(--primary);}
+  /* Champ "% de sortie" par TP : facultatif — laissé vide, la répartition égale automatique existante
+     (pTPBuildTranches) s'applique exactement comme avant, sans aucune modification de cette logique. */
+  .tp-row-pct{flex:0 0 72px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--text);
+    padding:8px 8px;font-size:13px;font-family:var(--font-body);text-align:right;
+    transition:border-color .18s ease-in-out,background-color .18s ease-in-out;}
+  .tp-row-pct:hover{border-color:var(--border-hover);background:var(--bg-hover);}
+  .tp-row-pct:focus{outline:none;border-color:var(--primary);}
+  .tp-row-pct-unit{flex:0 0 auto;font-size:12px;color:var(--text-faint);margin-left:-4px;}
+  .tp-row-del{flex:0 0 26px;height:26px;background:none;border:1px solid var(--border);border-radius:7px;color:var(--text-faint);cursor:pointer;font-size:15px;line-height:1;}
+  .tp-row-del:hover{color:var(--red);border-color:var(--red);}
+  /* ---- Indicateur "TP x/y" sur la carte de trade en cours (multi-TP uniquement) ---- */
+  .ot-tp-progress{
+    font-size:10px;font-weight:700;color:var(--text-faint);background:var(--bg-elevated);
+    border:1px solid var(--border-soft);border-radius:20px;padding:2px 7px;margin-left:2px;letter-spacing:.02em;
+  }
+  /* Encart d'info de détection auto de session : la logique/les données restent actives,
+     seul l'affichage visuel dans le formulaire est masqué (cf. demande du 24/08/2026). */
+  .p-session-auto{display:none;}
+  .modal-actions{display:flex;gap:10px;margin-top:18px;}
+  .modal-actions .btn{flex:1;justify-content:center;}
+
+  footer{margin-top:30px;text-align:center;color:var(--text-faint);font-size:12px;line-height:1.7;}
+  footer button{background:none;border:none;color:var(--text-dim);text-decoration:underline;cursor:pointer;font-size:12px;font-family:var(--font-body);}
